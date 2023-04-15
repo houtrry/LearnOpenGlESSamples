@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import com.houtrry.learnopenglessamples.opengl.SampleRender
 import com.houtrry.learnopenglessamples.utils.GlUtils
 import com.houtrry.learnopenglessamples.utils.showShortToast
+import com.houtrry.learnopenglessamples.view.MyGlSurfaceView
 import kotlinx.android.synthetic.main.activity_opengl_sample.*
 
 class OpenglSampleActivity : AppCompatActivity() {
@@ -20,13 +21,12 @@ class OpenglSampleActivity : AppCompatActivity() {
             showShortToast("not support OpenGL ES 2.0")
             return
         }
-        glSurfaceView = GLSurfaceView(this)
+        glSurfaceView = MyGlSurfaceView(this)
         frameLayout.addView(
             glSurfaceView,
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT
         )
-        glSurfaceView?.setRenderer(SampleRender(this))
     }
 
     override fun onResume() {

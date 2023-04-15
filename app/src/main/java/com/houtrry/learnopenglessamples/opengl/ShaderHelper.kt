@@ -40,7 +40,7 @@ object ShaderHelper {
         GLES20.glLinkProgram(programId)
         //4. 检查链接状态
         val linkStatus = IntArray(1)
-        GLES20.glGetShaderiv(programId, GLES20.GL_LINK_STATUS, linkStatus, 0)
+        GLES20.glGetProgramiv(programId, GLES20.GL_LINK_STATUS, linkStatus, 0)
         Log.i(TAG, "link program info: ${GLES20.glGetShaderInfoLog(programId)}")
         if (linkStatus[0] == 0) {
             Log.e(TAG, "linking of program failure")
@@ -56,7 +56,7 @@ object ShaderHelper {
     fun isValidateProgram(programId: Int): Boolean {
         GLES20.glValidateProgram(programId)
         val validateStatus = IntArray(1)
-        GLES20.glGetShaderiv(programId, GLES20.GL_VALIDATE_STATUS, validateStatus, 0)
+        GLES20.glGetProgramiv(programId, GLES20.GL_VALIDATE_STATUS, validateStatus, 0)
         Log.d(
             TAG,
             "result of validate program is ${validateStatus[0]}, and info is ${

@@ -46,10 +46,11 @@ class SampleRender(private val context: Context) : Renderer {
         vertexData = ByteBuffer.allocateDirect(tableVertices.size * BYTES_PRE_FLOAT)
             .order(ByteOrder.nativeOrder())
             .asFloatBuffer()
+        vertexData.put(tableVertices)
     }
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-        GLES20.glClearColor(1.0f, 0f, 0f, 0f)
+        GLES20.glClearColor(0f, 0f, 0f, 0f)
         initProgram()
     }
 
