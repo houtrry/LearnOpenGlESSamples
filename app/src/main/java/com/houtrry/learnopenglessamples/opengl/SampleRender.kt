@@ -24,19 +24,53 @@ class SampleRender(private val context: Context) : Renderer {
 
     private lateinit var vertexData: FloatBuffer
     private val tableVertices = floatArrayOf(
-        0f, 0f,
-        9f, 14f,
-        0f, 14f,
+//        0f, 0f,
+//        9f, 14f,
+//        0f, 14f,
+//
+//        0f, 0f,
+//        9f, 0f,
+//        9f, 14f,
+//
+//        0f, 7f,
+//        9f, 7f,
+//
+//        4.5f, 2f,
+//        4.5f, 12f,
 
-        0f, 0f,
-        9f, 0f,
-        9f, 14f,
 
-        0f, 7f,
-        9f, 7f,
+        -0.52f, -0.51f,
+        0.52f, 0.51f,
+        -0.52f, 0.51f,
 
-        4.5f, 2f,
-        4.5f, 12f,
+        -0.52f, -0.51f,
+        0.52f, 0.51f,
+        0.52f, -0.51f,
+
+        -0.5f, -0.5f,
+        0.5f, 0.5f,
+        -0.5f, 0.5f,
+//        0f, 0f,
+//        9f, 14f,
+//        0f, 14f,
+
+        -0.5f, -0.5f,
+        0.5f, 0.5f,
+        0.5f, -0.5f,
+
+//        0f, 0f,
+//        9f, 0f,
+//        9f, 14f,
+
+        -0.5f, 0f,
+        0.5f, 0f,
+//        0f, 7f,
+//        9f, 7f,
+
+        0f, 0.25f,
+        0f, -0.25f,
+//        4.5f, 2f,
+//        4.5f, 12f,
     )
 
     private var uColorLocation: Int = -1
@@ -60,19 +94,20 @@ class SampleRender(private val context: Context) : Renderer {
 
     override fun onDrawFrame(gl: GL10?) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
-
-        GLES20.glUniform4f(uColorLocation, 1f, 1f, 1f, 1f)
+        //画桌面外边框
+        GLES20.glUniform4f(uColorLocation, 0.5f, 0.8f, 0.8f, 1f)
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 6)
-
+        //画桌面
+        GLES20.glUniform4f(uColorLocation, 1f, 1f, 1f, 1f)
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 6, 6)
+        //画中间的线
         GLES20.glUniform4f(uColorLocation, 1f, 0f, 0f, 1f)
-        GLES20.glDrawArrays(GLES20.GL_LINES, 6, 2)
-
-
+        GLES20.glDrawArrays(GLES20.GL_LINES, 12, 2)
+        //画两个球
         GLES20.glUniform4f(uColorLocation, 0f, 0f, 1f, 1f)
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 8, 1)
-
+        GLES20.glDrawArrays(GLES20.GL_POINTS, 14, 1)
         GLES20.glUniform4f(uColorLocation, 1f, 0f, 0f, 1f)
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 9, 1)
+        GLES20.glDrawArrays(GLES20.GL_POINTS, 15, 1)
     }
 
     private fun initProgram() {
