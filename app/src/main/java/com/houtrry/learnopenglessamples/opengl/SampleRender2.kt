@@ -87,6 +87,11 @@ class SampleRender2(private val context: Context) : Renderer {
                 -1f, 1f
             )
         }
+
+        //平移
+//        Matrix.translateM(projectionMatrix, 0, 0.25f, 0.25f, 0f)
+    //缩放x，y
+    //        Matrix.scaleM(projectionMatrix, 0, 1.5f, 1.5f, 1f)
     }
 
     override fun onDrawFrame(gl: GL10?) {
