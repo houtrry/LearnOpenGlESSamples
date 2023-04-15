@@ -61,6 +61,8 @@ class SampleRender3(private val context: Context) : Renderer {
         0f
     }
 
+    private val modelMatrix = FloatArray(16)
+
     init {
         vertexData = ByteBuffer.allocateDirect(tableVertices.size * BYTES_PRE_FLOAT)
             .order(ByteOrder.nativeOrder())
@@ -76,19 +78,40 @@ class SampleRender3(private val context: Context) : Renderer {
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
         GLES20.glViewport(0, 0, width, height)
         val aspectRatio = if (width > height) width * 1.0f / height else height * 1.0f / width
-        if (width > height) {
-            Matrix.orthoM(projectionMatrix, 0,
-                -aspectRatio, aspectRatio,
-                -1f, 1f,
-                -1f, 1f
-            )
-        } else {
-            Matrix.orthoM(projectionMatrix, 0,
-                -1f, 1f,
-                -aspectRatio, aspectRatio,
-                -1f, 1f
-            )
-        }
+//        if (width > height) {
+//            Matrix.orthoM(projectionMatrix, 0,
+//                -aspectRatio, aspectRatio,
+//                -1f, 1f,
+//                -1f, 1f
+//            )
+//        } else {
+//            Matrix.orthoM(projectionMatrix, 0,
+//                -1f, 1f,
+//                -aspectRatio, aspectRatio,
+//                -1f, 1f
+//            )
+//        }
+        Matrix.perspectiveM(projectionMatrix,
+            0,
+            45f,
+            width * 1.0f / height,
+            1.0f,
+            10f)
+
+//        Matrix.setIdentityM(modelMatrix, 0)
+//        Matrix.translateM(modelMatrix, 0, 0f,
+//            0f, -2f)
+
+
+        Matrix.setIdentityM(modelMatrix, 0)
+        Matrix.translateM(modelMatrix, 0, 0f,
+            0f, -3f)
+        Matrix.rotateM(modelMatrix, 0,
+            -0f, 1f, 0f, 0f)
+
+        val temp = FloatArray(16)
+        Matrix.multiplyMM(temp, 0, projectionMatrix, 0, modelMatrix, 0)
+        System.arraycopy(temp, 0, projectionMatrix, 0, temp.size)
 
         //平移
 //        Matrix.translateM(projectionMatrix, 0, 0.25f, 0.25f, 0f)
